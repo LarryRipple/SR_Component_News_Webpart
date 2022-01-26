@@ -7,11 +7,11 @@
     "includeClientSideAssets": true,
     "isDomainIsolated": false,
     "developer": {
-      "name": "",
-      "websiteUrl": "",
-      "privacyUrl": "",
-      "termsOfUseUrl": "",
-      "mpnId": ""
+      "name": "Silicon Reef Ltd",
+      "websiteUrl": "https://siliconreef.co.uk/",
+      "privacyUrl": "https://siliconreef.co.uk/privacy/",
+      "termsOfUseUrl": "https://siliconreef.co.uk/privacy/",
+      "mpnId": "4887616"
     }
   },
   "paths": {
