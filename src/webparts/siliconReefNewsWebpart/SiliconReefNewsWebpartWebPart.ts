@@ -61,7 +61,7 @@ export default class SiliconReefNewsWebpartWebPart extends BaseClientSideWebPart
     let attach;
     let attach1;
    
-
+   
     $("body").append(`
 
     <style>
@@ -601,6 +601,68 @@ h4.title {
   }
 
 
+
+
+  .in-slide-container {
+    margin-top: 28px;
+}
+
+.in-slide-container .in-slideshow::before {
+    width: 110px;
+    height: 110px;
+    margin-bottom: -110px;
+    content: "";
+    background: url(../img/vilisya-ornament.svg) no-repeat;
+    left: 65px;
+    top: 18px;
+    position: absolute;
+}
+
+.in-slide-container .in-slideshow::after {
+    width: 110px;
+    height: 110px;
+    margin-bottom: -110px;
+    content: "";
+    background: url(../img/vilisya-ornament.svg) no-repeat;
+    right: 65px;
+    bottom: 51px;
+    position: absolute;
+}
+
+.in-slide-container .uk-slideshow-items {
+    z-index: 1;
+}
+
+.in-slide-container .uk-slideshow-items .in-slide-text {
+    width: 100%;
+    background: #f2f2f2;
+    padding: 50px 70px 40px 70px;
+    position: relative;
+    z-index: 1;
+}
+
+.in-slide-container .uk-slideshow-items .in-slide-text h2 {
+    color: #fda924;
+}
+
+.in-slide-container .uk-slideshow-items .in-slide-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.in-slide-container .uk-slideshow-items .in-slide-image img {
+    width: 100%;
+}
+
+.in-slide-container .uk-slidenav-container {
+    position: absolute;
+    bottom: 45px;
+    left: 70px;
+    z-index: 2;
+}
+
+  
     </style>`);
     let sfilter;
     const cpn = this.properties.poll;
@@ -861,36 +923,41 @@ h4.title {
               jQuery(attach1).append(content);
             }
             else if (viewtype == "ImageSlide") {
-              var carouselwrapper1 = `<div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="clsActivated: uk-transition-active; center: true" style="left:20px">
+              var carouselwrapper1 = `<div style="width:100%;height:400px" class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="min-height: 400; max-height: 400">
 
-    <ul  id="carouselitems`+ uniqueref + `" class="uk-slider-items uk-grid-small" style="margin:0px;">
+
+    <ul  id="carouselitems`+ uniqueref + `" class="uk-slideshow-items " style="min-height: 400px !Important; height:400px !important">
 
     </ul>
 
-    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+    <div class="uk-light">
+    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+</div>
 
-</div>`;
+</div>
+<ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>`;
               attach = "#" + uniqueref;
               jQuery(attach).html("");
               jQuery(attach).append(carouselwrapper1);
-              content += `<li posttype="` + result.OData__TopicHeader + `" class="uk-width-3-4">
-<div class="uk-panel" style="height:350px">
-    <img alt="`+ result.Title + ` image" style="height:350px;width:100%;object-fit:cover" src="` + imageurl + `" alt="">
-    <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-text-center uk-transition-slide-bottom" style="height:350px">
-        <h3 style="font-size:16px;padding-bottom:10px; font-weight:400; -webkit-box;    -webkit-line-clamp: 2;    -webkit-box-orient: vertical;    line-height: 1.2em;" class="uk-margin-remove">`+ result.Title + `</h3>
-
-                      <p style="font-size:14px; color:white; font-weight:400;  overflow:hidden; -webkit-box;    -webkit-line-clamp: 3;    -webkit-box-orient: vertical;    line-height: 1.2em;    padding-top:10px" class="uk-margin-remove">`+ result.Description + `</p>
-                      <span style="color:white !important" class="" style="">( <i style="color:white !important" class="clock outline icon"></i> `+ readtime + `  )</span></br>
-
-        <a href="`+ siteurl + '/SitePages/News.aspx?newsitem=' + result.ID + `" data-interception="off" style="margin:auto;margin-top:30px;padding:10px;position:relative;top:30px" href="#" class="uk-button-default">Read more</a>
-    </div>
-</div>
-</li>`;
+              content += `<li tabindex="-1" class="uk-transition-active uk-overlay-primary" style="max-height:400px">                    
+              <div class="uk-width-1-2 uk-visible@s uk-cover-container uk-height-1-1">
+                  <img src="`+imageurl+`" data-src="`+imageurl+`" alt="`+result.Title+` image" width="550" height="400" data-uk-img="`+imageurl+`" data-uk-cover="`+imageurl+`" class="uk-cover" style="width: 550px; height: 420px;">
+              </div>
+              <div class="uk-position-center-right uk-width-1-1 uk-width-1-2@s">                        
+                  <div class="uk-light uk-padding">
+                      <div  style="text-transform:none" class="`+result.OData__TopicHeader+` uk-label">`+result.OData__TopicHeader+`</div>
+                      <h4 class="">`+result.Title+`</h1>
+                      <p class="intro `+ result.Description + `" style="color:white !important;max-width:95%;display: -webkit-box;    -webkit-line-clamp: 2;    -webkit-box-orient: vertical;    line-height: 1.2em;    position:relative;   overflow: hidden;">` + result.Description + `</p>
+                      <a href="#" style="text-transform:none" class="uk-button uk-button-text">Read More <span class="uk-margin-small-left uk-icon" data-uk-icon="icon: fa-arrow-right; ratio:0.028"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="12.544" height="14.336" data-svg="fa-arrow-right"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg></span></a>
+                  </div>
+              </div>
+          </li>`;
               attach1 = "#carouselitems" + uniqueref;
               jQuery(attach1).html("");
 
               jQuery(attach1).append(content);
+            
             }
 
 
